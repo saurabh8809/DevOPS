@@ -5,13 +5,13 @@
    
     - name: Copy Webapp File to QA Server
       copy:
-        src: /root/webapp.war
-        dest: /root
+        src: /home/ec2-user/webapp.war
+        dest: /home/ec2-user
         
     - name: Copy DockerFile to QA Server
       copy:
-        src: /root/Dockerfile
-        dest: /root
+        src: /home/ec2-user/Dockerfile
+        dest: /home/ec2-user
 
     - name: Stop Running Container
       command: docker stop test-tom
