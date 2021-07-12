@@ -1,0 +1,32 @@
+---
+
+ - hosts: all
+   tasks:
+   
+    - name: Copy Webapp File to QA Server
+      copy:
+        src: /root/webapp.war
+        dest: /root
+        
+    - name: Copy DockerFile to QA Server
+      copy:
+        src: /root/Dockerfile
+        dest: /root
+
+    - name: Stop Running Container
+      command: docker stop test-tom
+      ignore_errors: True
+      
+    - name: Remove Container
+      command: docker rm test-tom
+      ignore_errors: True
+      
+    - name: Remove Image
+      command: docker rmi tom
+      ignore_errors: True
+      
+    - name: Build Image From Dockerfile
+      command: docker build -t tom .
+      
+    - name: Run Container
+      command: docker run -d -p 8080:8080 --name test-tom tom
